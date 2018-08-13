@@ -21,7 +21,7 @@ SynthDef.new("base_sin_pulse",{
 	arg b_freq = 100, amp = 1; //base frequency
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[0.25,1.5,0.25],[\sine,0,\sine]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,1],[3],[0]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,1],[2],[0]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -37,7 +37,7 @@ SynthDef.new("cheering_sin_pulse",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -49,7 +49,7 @@ SynthDef.new("ahaa_sin_pulse",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.1,1,0.1,0],[0.25,0.25,0.25,0.25,0.1],[-3,-6,-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -65,7 +65,7 @@ SynthDef.new("chat_sin_pulse",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -77,7 +77,7 @@ SynthDef.new("alert_sin_pulse",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0,1,0],[0.25,0.25,0.25,0.25],[-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -89,7 +89,7 @@ SynthDef.new("growl_sin_pulse",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0.8,0],[0.25,0.75,1],[-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new([SinOsc.ar(freq), LFPulse.ar(freq,width: 0.4, mul: 0.5)])*env*amp;
 	Out.ar(0,sig);
@@ -104,7 +104,7 @@ SynthDef.new("base_sinus_mix",{
 	arg b_freq = 100, amp = 2;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[0.25,1.5,0.25],[\sine,0,\sine]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,1],[3],[0]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,1],[2],[0]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -120,7 +120,7 @@ SynthDef.new("cheering_sinus_mix",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -132,7 +132,7 @@ SynthDef.new("ahaa_sinus_mix",{
 	arg b_freq = 100, amp = 2;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.1,1,0.1,0],[0.25,0.25,0.25,0.25,0.1],[-3,-6,-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -148,7 +148,7 @@ SynthDef.new("chat_sinus_mix",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -160,7 +160,7 @@ SynthDef.new("alert_sinus_mix",{
 	arg b_freq = 100, amp = 2;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0,1,0],[0.25,0.25,0.25,0.25],[-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -172,7 +172,7 @@ SynthDef.new("growl_sinus_mix",{
 	arg b_freq = 100, amp = 2;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0.8,0],[0.25,0.75,1],[-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp;
 	Out.ar(0,sig);
@@ -187,7 +187,7 @@ SynthDef.new("base_bubble",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[0.25,1.5,0.25],[\sine,0,\sine]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,1],[3],[0]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,1],[2],[0]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -203,7 +203,7 @@ SynthDef.new("cheering_bubble",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -215,7 +215,7 @@ SynthDef.new("ahaa_bubble",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,0.8,0.1,1,0.1,0],[0.25,0.25,0.25,0.25,0.1],[-3,-6,-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -231,7 +231,7 @@ SynthDef.new("chat_bubble",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -243,7 +243,7 @@ SynthDef.new("alert_bubble",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,1,0,1,0],[0.25,0.25,0.25,0.25],[-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -255,7 +255,7 @@ SynthDef.new("growl_bubble",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,1,0.8,0],[0.25,0.75,1],[-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -270,7 +270,7 @@ SynthDef.new("base_bib_bop",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[0.25,1.5,0.25],[\sine,0,\sine]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,1],[3],[0]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,1],[2],[0]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -286,7 +286,7 @@ SynthDef.new("cheering_bib_bop",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -298,7 +298,7 @@ SynthDef.new("ahaa_bib_bop",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,0.8,0.1,1,0.1,0],[0.25,0.25,0.25,0.25,0.1],[-3,-6,-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -314,7 +314,7 @@ SynthDef.new("chat_bib_bop",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -326,7 +326,7 @@ SynthDef.new("alert_bib_bop",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,1,0,1,0],[0.25,0.25,0.25,0.25],[-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -338,7 +338,7 @@ SynthDef.new("growl_bib_bop",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,1,0.8,0],[0.25,0.75,1],[-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:2);
 	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
@@ -353,7 +353,7 @@ SynthDef.new("base_saw",{
 	arg b_freq = 100, amp = 1; //base frequency
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[0.25,1.5,0.25],[\sine,0,\sine]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,1],[3],[0]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,1],[2],[0]), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -369,7 +369,7 @@ SynthDef.new("cheering_saw",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[0.25,0.25,0.25,0.25,0.25,0.25],\sine), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -381,7 +381,7 @@ SynthDef.new("ahaa_saw",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,0.8,0.1,1,0.1,0],[0.25,0.25,0.25,0.25,0.1],[-3,-6,-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,3],[2],[3]), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -397,7 +397,7 @@ SynthDef.new("chat_saw",{
 		[0.25,0,0.25,0,0.25,0,0.25,0,0.25,0,0.25,0],
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,4,1],[0.75,0.75],\sine), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -409,7 +409,7 @@ SynthDef.new("alert_saw",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0,1,0],[0.25,0.25,0.25,0.25],[-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([4,4],[2],[3]), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -421,7 +421,7 @@ SynthDef.new("growl_saw",{
 	arg b_freq = 100, amp = 1;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0.8,0],[0.25,0.75,1],[-3,9,-3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:0);
+	env_freq = EnvGen.kr(Env.new([1,0.5],[2],[-3]), doneAction:2);
 	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp;
 	Out.ar(0,sig);
@@ -501,13 +501,46 @@ s.waitForBoot({
 	startButton = Button(w, 75 @ 24)
 	.states_([["Start", Color.black, Color.green]])
 	.action_({
-		arg obj;
-		if (obj.value == 0){
-			snd = funcs.at(m_sound.value*dialogs + m_dialog.value).play;
-		};
+		//snd.release;
+		snd = {funcs.at(m_sound.value*dialogs + m_dialog.value)}.play;
 	});
 
 	w.front;
 	w.alwaysOnTop = true;
+})
+)
+
+//gotov primjer - šablona
+(
+s.waitForBoot({
+
+ var w, menu, snd, funcs, b;
+
+ w = Window.new.front;
+
+ menu = PopUpMenu(w, Rect(10, 10, 90, 20))
+  .items_(["Sine", "Saw" , "Noise" , "Pulse"]);
+
+ funcs = [
+  { SinOsc.ar(440, 0, 0.3) },
+  { Saw.ar(440, 0.3) },
+  { WhiteNoise.ar(0.3) },
+  { Pulse.ar(440, 0.2, 0.3) }
+ ];
+
+ b = Button(w, Rect(110, 10, 180, 20))
+  .states_([["play", Color.black, Color.green]])
+  .mouseDownAction_({
+    snd = funcs.at(menu.value).play;
+   })
+  .action_({ arg butt, mod;
+    snd.release;
+   });
+
+ w.front;
+
+ p = CmdPeriod.add({ b.value_(0) }); // set button to 0 on hitting Cmd-period
+ w.onClose_{ snd.release; CmdPeriod.removeAll }; // clean up when window is closed
+
 })
 )
