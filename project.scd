@@ -192,7 +192,7 @@ SynthDef.new("greetings_sinus_mix",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
+	env_freq = EnvGen.kr(Env.new([1,1,1.5,1.5,3,3],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = Mix.new( Array.fill(8, { SinOsc.ar(5*freq + 500.0.rand, 0, 0.05) }) )*env*amp*2;
 	Out.ar(0,sig);
@@ -338,8 +338,8 @@ SynthDef.new("base_bubble",{
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,10*dur,dur],[\sine,0,\sine]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,1],[12*dur],[0]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -348,10 +348,10 @@ SynthDef.new("base_bubble",{
 SynthDef.new("greetings_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
-	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([0.8,0.1],[dur*12],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.4,0.4,1.6,1.6,6.4,6.4],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -362,12 +362,12 @@ SynthDef.new("cheering_bubble",{
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new(
 		[0,1,0,1,0,1,0,1,0,1,0,1,0],
-		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0],
+		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0]*2,
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[dur,dur,dur,dur,dur,dur],\sine), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[dur,dur,dur,dur,dur,dur]*2,\sine), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -378,8 +378,8 @@ SynthDef.new("ahaa_bubble",{
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -390,12 +390,12 @@ SynthDef.new("chat_bubble",{
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new(
 		[0,1,0,1,0,1,0,1,0,1,0,1,0],
-		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0],
+		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0]*2,
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur,3*dur],\sine), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur,3*dur]*2,\sine), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -404,10 +404,10 @@ SynthDef.new("chat_bubble",{
 SynthDef.new("alert_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
-	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,3,-3,3,-3,3]), doneAction:2);
+	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,-3,-3,-3,-3,-3]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([4,4],[6*dur],[3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/2;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -417,8 +417,8 @@ SynthDef.new("growl_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
 	env = EnvGen.kr(Env.new([0,1.4,1,0],[dur,3*dur,4*dur],[-3,9,1]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([0.8,0.4],[8*dur],[-3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	env_freq = EnvGen.kr(Env.new([1,0.5],[8*dur],[-3]), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -428,15 +428,15 @@ SynthDef.new("growl_bubble",{
 SynthDef.new("sos_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
-	env = EnvGen.kr(Env.new([1,1],[dur*13+0.3],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,1],[dur*20+0.6],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1]*4,
-		[dur,0,0.1,0,dur,0,0.1,0,dur,0,dur*4,0,
-			dur*4,0,0.1,0,dur*4,0,0.1,0,dur*4,0,dur*4,0,
-			dur,0,0.1,0,dur,0,0.1,0,dur]/2,0),
+		[dur,0,0.1,0,dur,0,0.1,0,dur,0,dur,0,
+			dur*4,0,0.1,0,dur*4,0,0.1,0,dur*4,0,dur,0,
+			dur,0,0.1,0,dur,0,0.1,0,dur],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -450,8 +450,8 @@ SynthDef.new("agree_bubble",{
 		[7,7,5.9,5.9,4.9,4.9,4.4,4.4],
 		[dur,0,dur,0,dur,0,dur],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -460,13 +460,13 @@ SynthDef.new("agree_bubble",{
 SynthDef.new("disagree_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
-	env = EnvGen.kr(Env.new([1,1],[dur*7+0.3],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,1]*2,[dur*7+0.3],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[1.9,1.9,0,0,1.9,1.9,0,0,1.9,1.9,0,0,0.8,0.8],
 		[dur,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*4],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -475,13 +475,13 @@ SynthDef.new("disagree_bubble",{
 SynthDef.new("bye_bubble",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 64;
-	env = EnvGen.kr(Env.new([1,1],[dur*4+0.25],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,1],[dur*4+0.25]*2,[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[2.3,2.3,0,0,1.6,1.6,0,0,2.2,2.2,0,0,2.3,2.3,0,0,1.5,1.5,0,0,2.2,2.2],
-		[dur,0,0.1,0,dur,0,0.1,0,dur*2,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*2]/2,0),
+		[dur,0,0.1,0,dur,0,0.1,0,dur*2,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*2],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -495,7 +495,7 @@ SynthDef.new("base_bib_bop",{
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,10*dur,dur],[\sine,0,\sine]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,1],[12*dur],[0]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -506,8 +506,8 @@ SynthDef.new("greetings_bib_bop",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.5,1.5,4,4],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -523,7 +523,7 @@ SynthDef.new("cheering_bib_bop",{
 		[0,0,0,0,0,0,0,0,0,0,0,0]),
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[dur,dur,dur,dur,dur,dur],\sine), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -535,7 +535,7 @@ SynthDef.new("ahaa_bib_bop",{
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -547,11 +547,11 @@ SynthDef.new("chat_bib_bop",{
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new(
 		[0,1,0,1,0,1,0,1,0,1,0,1,0],
-		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0],
+		[dur,0,dur,0,dur,0,dur,0,dur,0,dur,0]*2,
 		[3,0,3,0,3,0,3,0,3,0,3,0]),
 	doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur,3*dur],\sine), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur,3*dur]*2,\sine), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -563,7 +563,7 @@ SynthDef.new("alert_bib_bop",{
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,3,-3,3,-3,3]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([4,4],[6*dur],[3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -573,9 +573,9 @@ SynthDef.new("alert_bib_bop",{
 SynthDef.new("growl_bib_bop",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 8;
-	env = EnvGen.kr(Env.new([0,1.4,1,0],[dur,3*dur,4*dur],[-3,9,1]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([0.8,0.4],[8*dur],[-3]), doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	env = EnvGen.kr(Env.new([0,1.4,1,0.5,0],[dur,3*dur,3*dur,dur],[-3,9,1,0]), doneAction:2);
+	env_freq = EnvGen.kr(Env.new([0.8,0.5],[8*dur],[-3]), doneAction:2);
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp;
 	Out.ar(0,sig);
 }).add;
@@ -585,14 +585,14 @@ SynthDef.new("growl_bib_bop",{
 SynthDef.new("sos_bib_bop",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 8;
-	env = EnvGen.kr(Env.new([1,1],[dur*7+0.3],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,1],[dur*10+0.3],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1]*4,
 		[dur,0,0.1,0,dur,0,0.1,0,dur,0,dur,0,
-			dur*2,0,0.1,0,dur*2,0,0.1,0,dur*2,0,dur,0,
+			dur*4,0,0.1,0,dur*4,0,0.1,0,dur*4,0,dur,0,
 			dur,0,0.1,0,dur,0,0.1,0,dur]/2,0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp/8;
 	Out.ar(0,sig);
 }).add;
@@ -607,7 +607,7 @@ SynthDef.new("agree_bib_bop",{
 		[7,7,5.9,5.9,4.9,4.9,4.4,4.4],
 		[dur,0,dur,0,dur,0,dur],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
 	sig = SinOsc.ar(freq)*env*amp/8;
 	Out.ar(0,sig);
 }).add;
@@ -619,11 +619,11 @@ SynthDef.new("disagree_bib_bop",{
 	var sig, env_freq, env, freq, noiseHz = 8;
 	env = EnvGen.kr(Env.new([1,1],[dur*7+0.3],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
-		[1.9,1.9,0,0,1.9,1.9,0,0,1.9,1.9,0,0,0.8,0.8],
+		[1.9,1.9,0,0,1.9,1.9,0,0,1.9,1.9,0,0,1,1],
 		[dur,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*4],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
 );
@@ -632,13 +632,13 @@ SynthDef.new("disagree_bib_bop",{
 SynthDef.new("bye_bib_bop",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq, noiseHz = 8;
-	env = EnvGen.kr(Env.new([1,1],[dur*4+0.25],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,1],[dur*16+0.4],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
-		[2.3,2.3,0,0,1.6,1.6,0,0,2.2,2.2,0,0,2.3,2.3,0,0,1.5,1.5,0,0,2.2,2.2],
-		[dur,0,0.1,0,dur,0,0.1,0,dur*2,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*2]/2,0),
+		[4,4,0,0,1,1,0,0,2,2],
+		[dur*4,0,0.2,0,dur*4,0,0.2,0,dur*8],0),
 	doneAction:2);
-	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq*6)*env_freq;
-	sig = SinOsc.ar(freq)*env*amp/8;
+	freq = LFNoise0.kr(noiseHz).exprange(b_freq,b_freq+300)*env_freq;
+	sig = SinOsc.ar(freq)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
 );
@@ -690,9 +690,9 @@ SynthDef.new("cheering_saw",{
 SynthDef.new("ahaa_saw",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
-	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
+	env = EnvGen.kr(Env.new([0,0.8,0,1,0],[dur,dur,dur,dur],[\sine,9,\sine,9]), doneAction:2);
+	env_freq = EnvGen.kr(Env.new([1,3],[4*dur],[3]), doneAction:2);
+	freq = LFSaw.kr(0.1, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
@@ -732,7 +732,7 @@ SynthDef.new("growl_saw",{
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1.4,1,0],[dur,3*dur,4*dur],[-3,9,1]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.4],[8*dur],[-3]), doneAction:2);
-	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
+	freq = LFSaw.kr(16, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
@@ -779,7 +779,7 @@ SynthDef.new("disagree_saw",{
 		[1.2,1.2,0,0,1.2,1.2,0,0,1.2,1.2,0,0,0.4,0.4],
 		[dur,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*4],0),
 	doneAction:2);
-	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
+	freq = LFSaw.kr(8, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
@@ -794,7 +794,7 @@ SynthDef.new("bye_saw",{
 		[2.3,2.3,0,0,1.6,1.6,0,0,2.2,2.2,0,0,2.3,2.3,0,0,1.5,1.5,0,0,2.2,2.2],
 		[dur,0,0.1,0,dur,0,0.1,0,dur*2,0,0.1,0,dur,0,0.1,0,dur,0,0.1,0,dur*2]/2,0),
 	doneAction:2);
-	freq = LFSaw.kr(4, 0, b_freq, 400)*env_freq;
+	freq = LFSaw.kr(2, 0, b_freq, 400)*env_freq;
 	sig = LFSaw.ar(freq,0,0.1)*env*amp/2;
 	Out.ar(0,sig);
 }).add;
@@ -810,7 +810,7 @@ SynthDef.new("base_tremor",{
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,10*dur,dur],[\sine,0,\sine]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,1],[12*dur],[0]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -822,7 +822,7 @@ SynthDef.new("greetings_tremor",{
 	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -838,7 +838,7 @@ SynthDef.new("cheering_tremor",{
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[dur,dur,dur,dur,dur,dur],\sine), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -850,7 +850,7 @@ SynthDef.new("ahaa_tremor",{
 	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -866,7 +866,7 @@ SynthDef.new("chat_tremor",{
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur+0.3,3*dur+0.3],\sine), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -878,7 +878,7 @@ SynthDef.new("alert_tremor",{
 	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,3,-3,3,-3,3]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([4,4],[6*dur],[3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp*2;
+	sig = SinOsc.ar(SinOsc.ar(LFTri.kr(8), 0, 100, freq*2), 0, 0.5)*env*amp;
 	Out.ar(0,sig);
 }).add;
 );
@@ -918,7 +918,7 @@ SynthDef.new("agree_tremor",{
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([1,1],[dur*4],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
-		[7,7,5.9,5.9,4.9,4.9,4.4,4.4],
+		[3.5,3.5,2.9,2.9,2.5,2.5,2.2,2.2],
 		[dur,0,dur,0,dur,0,dur],0),
 	doneAction:2);
 	freq = b_freq*env_freq;
@@ -964,7 +964,7 @@ SynthDef.new("bye_tremor",{
 SynthDef.new("base_ratio",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,10*dur,dur],[\sine,0,\sine]), doneAction:2);
+	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,dur,10*dur],[\sine,0,0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,1],[12*dur],[0]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = SinOsc.ar(freq*8, SinOsc.ar(LFTri.kr(800), 0, 2pi), 0.2)*env*amp/4;
@@ -976,7 +976,7 @@ SynthDef.new("base_ratio",{
 SynthDef.new("greetings_ratio",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([0.8,0.1],[dur*12],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = SinOsc.ar(freq*8, SinOsc.ar(LFTri.kr(800), 0, 2pi), 0.2)*env*amp/4;
@@ -1033,7 +1033,7 @@ SynthDef.new("alert_ratio",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
 	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,3,-3,3,-3,3]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([4,4],[6*dur],[3]), doneAction:2);
+	env_freq = EnvGen.kr(Env.new([4,1],[6*dur],[0]), doneAction:2);
 	freq = b_freq*env_freq;
 	sig = SinOsc.ar(freq*8, SinOsc.ar(LFTri.kr(800), 0, 2pi), 0.2)*env*amp/4;
 	Out.ar(0,sig);
@@ -1073,7 +1073,7 @@ SynthDef.new("sos_ratio",{
 SynthDef.new("agree_ratio",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([1,1],[dur*8],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,0.1],[dur*8],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[7,7,5.9,5.9,4.9,4.9,4.4,4.4]*2,
 		[dur*2,0,dur*2,0,dur*2,0,dur*2],0),
@@ -1088,7 +1088,7 @@ SynthDef.new("agree_ratio",{
 SynthDef.new("disagree_ratio",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([1,1],[dur*6+0.3],[0]), doneAction:2);
+	env = EnvGen.kr(Env.new([1,0.01],[dur*6+0.3],[1]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new(
 		[1.9,0,0,1.9,0,0,1.9,0,0,0.1,0],
 		[dur,0.1,0,dur,0.1,0,dur,0.1,0,dur*3],
@@ -1966,9 +1966,7 @@ s.waitForBoot({
 	startButton = Button(w, 75 @ 24)
 	.states_([["Start", Color.black, Color.green]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new(funcs.at(m_sound.value*dialogues + m_dial.value).value);
 		snd.set("b_freq",
 			switch( m_mood.value,
@@ -2035,9 +2033,7 @@ s.waitForBoot({
 	sampleB_1 = Button(w, 75 @ 24)
 	.states_([["Sample 1", Color.black, Color.cyan]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new("cheering_miser");
 		snd.set("b_freq", 70, "amp", 0.5, "dur", 0.35);
 	});
@@ -2047,9 +2043,7 @@ s.waitForBoot({
 	sampleB_2 = Button(w, 75 @ 24)
 	.states_([["Sample 2", Color.black, Color.cyan]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new("cheering_miser");
 		snd.set("b_freq", 130, "amp", 1.2, "dur", 0.2);
 	});
@@ -2058,9 +2052,7 @@ s.waitForBoot({
 	sampleB_3 = Button(w, 75 @ 24)
 	.states_([["Sample 3", Color.black, Color.cyan]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new("cheering_miser");
 		snd.set("b_freq", 150, "amp", 1.4, "dur", 0.18);
 	});
@@ -2070,9 +2062,7 @@ s.waitForBoot({
 	sampleB_4 = Button(w, 75 @ 24)
 	.states_([["Sample 4", Color.black, Color.cyan]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new("bye_miser");
 		//snd.set("b_freq", 130, "amp", 1.2, "dur", 0.2);
 	});
@@ -2080,9 +2070,7 @@ s.waitForBoot({
 	sampleB_5 = Button(w, 75 @ 24)
 	.states_([["Sample 5", Color.black, Color.cyan]])
 	.action_({
-		if( snd.isPlaying,
-			{snd.free}
-		);
+		snd.free;
 		snd = Synth.new(funcs.at((characters*dialogues).rand).value);
 		snd.set("b_freq", rrand(50, 150), "amp", rrand(0.5, 1.5), "dur", rrand(0.2, 0.35));
 	});
