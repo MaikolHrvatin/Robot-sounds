@@ -1134,10 +1134,10 @@ SynthDef.new("base_miser",{
 SynthDef.new("greetings_miser",{
 	arg b_freq = 100, amp = 1, dur = 0.25;
 	var sig, env_freq, env, freq;
-	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
-	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
+	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12+0.1],[0]), doneAction:2);
+	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2,0],[dur*4,0,dur*4,0,dur*4,0.1],0), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq*2 + 400, 0, 0.1).sum*env*amp*2;
+	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq + 400, 0, 0.1).sum*env*amp*2;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1165,7 +1165,7 @@ SynthDef.new("ahaa_miser",{
 	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq*2 + 400, 0, 0.1).sum*env*amp*2;
+	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq + 400, 0, 0.1).sum*env*amp*2;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1205,7 +1205,7 @@ SynthDef.new("growl_miser",{
 	env = EnvGen.kr(Env.new([0,1.4,1,0],[dur,3*dur,4*dur],[-3,9,1]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.4],[8*dur],[-3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq*2 + 400, 0, 0.1).sum*env*amp*2;
+	sig = LFTri.ar(LFTri.kr(0.05, iphase: (0..3)) * freq + 400, 0, 0.1).sum*env*amp*2;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1599,7 +1599,7 @@ SynthDef.new("base_crackle",{
 	env = EnvGen.kr(Env.new([0,0.8,0.8,0],[dur,10*dur,dur],[\sine,0,\sine]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,1],[12*dur],[0]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1611,7 +1611,7 @@ SynthDef.new("greetings_crackle",{
 	env = EnvGen.kr(Env.new([0.8,0.4],[dur*12],[0]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.8,1.6,1.6,3.2,3.2],[dur*4,0,dur*4,0,dur*4],0), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1627,7 +1627,7 @@ SynthDef.new("cheering_crackle",{
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,4,1,4,1,4,1],[dur,dur,dur,dur,dur,dur],\sine), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1639,7 +1639,7 @@ SynthDef.new("ahaa_crackle",{
 	env = EnvGen.kr(Env.new([0,0.8,0,0,1,0],[dur,dur,dur,dur,dur],[\sine,9,0,\sine,9]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,3],[5*dur],[3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1655,7 +1655,7 @@ SynthDef.new("chat_crackle",{
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1,4,1],[3*dur,3*dur],\sine), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1667,7 +1667,7 @@ SynthDef.new("alert_crackle",{
 	env = EnvGen.kr(Env.new([0,1,0,1,0,1,0],[dur,dur,dur,dur,dur,dur],[-3,3,-3,3,-3,3]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([4,4],[6*dur],[3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1679,7 +1679,7 @@ SynthDef.new("growl_crackle",{
 	env = EnvGen.kr(Env.new([0,1.4,1,0],[dur,3*dur,4*dur],[-3,9,1]), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([0.8,0.4],[8*dur],[-3]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1696,7 +1696,7 @@ SynthDef.new("sos_crackle",{
 	doneAction:2);
 	env_freq = EnvGen.kr(Env.new([8,8],[dur*7+0.3],[0]), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/2;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1711,7 +1711,7 @@ SynthDef.new("agree_crackle",{
 		[dur,0,dur,0,dur,0,dur],0),
 	doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/2;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1725,7 +1725,7 @@ SynthDef.new("disagree_crackle",{
 		[dur/4,dur/4*3,dur/4,dur/4*3,dur/4,dur/4*3,dur/4,dur*4],0), doneAction:2);
 	env_freq = EnvGen.kr(Env.new([1.9,1.9,1.6,1.6],[dur/4*13,0,dur*4],0), doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/2;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1743,7 +1743,7 @@ SynthDef.new("bye_crackle",{
 		[dur/4*5,0,dur,0,dur*2,0,dur,0,dur,0,dur*2],0),
 	doneAction:2);
 	freq = b_freq*env_freq;
-	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/2;
+	sig = Mix.new([SinOsc.ar(freq*2), Crackle.ar(1.95, 0.5)])*env*amp/4;
 	Out.ar(0,sig);
 }).add;
 );
@@ -1758,7 +1758,7 @@ s.waitForBoot({
 	var w, f; //window and flow layout
 	var funcs, snd; //funkcions and playing sound
 	var startButton, randomButton;
-	var sampleB_1, sampleB_2, sampleB_3, sampleB_4, sampleB_5;
+	var sampleB_1, sampleB_2, sampleB_3, sampleB_4, sampleB_5, sampleB_6;
 	var win_width = 600, win_height = 400;
 	var characters = 11, dialogues = 11, moods = 8; //number of drop down elements
 	var l_sound, l_dial, l_mood; //labels
@@ -2059,20 +2059,28 @@ s.waitForBoot({
 	//sample for goodbye
 	//test to recognise speech
 	//test compare with sample above (goodby & cheering)
+	//test same robot
 	sampleB_4 = Button(w, 75 @ 24)
 	.states_([["Sample 4", Color.black, Color.cyan]])
 	.action_({
 		snd.free;
 		snd = Synth.new("bye_miser");
-		//snd.set("b_freq", 130, "amp", 1.2, "dur", 0.2);
 	});
-	//sample
+	//sample for goodbye
+	//test compare robots
 	sampleB_5 = Button(w, 75 @ 24)
 	.states_([["Sample 5", Color.black, Color.cyan]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at((characters*dialogues).rand).value);
-		snd.set("b_freq", rrand(50, 150), "amp", rrand(0.5, 1.5), "dur", rrand(0.2, 0.35));
+		snd = Synth.new("bye_bubble");
+	});
+	//sample for goodbye
+	//test compare robots
+	sampleB_6 = Button(w, 75 @ 24)
+	.states_([["Sample 6", Color.black, Color.cyan]])
+	.action_({
+		snd.free;
+		snd = Synth.new("bye_ira");
 	});
 
 	drawFunction.value;
