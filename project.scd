@@ -1767,7 +1767,7 @@ s.waitForBoot({
 	var drawFunction;
 
 	// The window will allways be in the centar of the screen
-	w = Window("Test window 3.0", Rect(
+	w = Window("Robotic sounds as a method of communication", Rect(
 		Window.screenBounds.width/2 - (win_width/2),
 		Window.screenBounds.height/2 - (win_height/2),
 		win_width,
