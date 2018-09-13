@@ -1910,6 +1910,7 @@ s.waitForBoot({
 	];
 
 	mood_var = [
+		//normal
 		//happy
 		//sad
 		//surprised
@@ -1917,10 +1918,9 @@ s.waitForBoot({
 		//fearfull
 		//disgusted
 		//bored
-		//normal
-		[ 130, 70, 130, 150, 150, 60, 50, 100 ], // b_freq
-		[ 1.2, 0.5, 1, 1.4, 0.8, 0.8, 0.6, 1 ], //amp
-		[ 0.2, 0.35, 0.25, 0.18, 0.22, 0.20, 0.45, 0.25 ] //dur
+		[ 100, 130, 70, 130, 150, 150, 60, 50 ], // b_freq
+		[ 1, 1.2, 0.5, 1, 1.4, 0.8, 0.8, 0.6 ], //amp
+		[ 0.25, 0.2, 0.35, 0.25, 0.18, 0.22, 0.20, 0.45 ] //dur
 	];
 
 	//generate a new set of sounds
