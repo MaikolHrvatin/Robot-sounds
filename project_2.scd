@@ -1742,7 +1742,7 @@ s.waitForBoot({
 	// GUI window with some SCPopUpMenus.
 	var m_sound, m_dial, m_mood, sound, dialogue, mood; //menu and strings
 	var w, f; //window and flow layout
-	var funcs, snd, mood_var; //funkcions and playing sound
+	var funcs, snd; //functions and playing sound
 	//var startButton, randomButton; //removed
 	var win_width = 600, win_height = 600;
 	var characters = 11, dialogues = 11, moods = 8; //number of drop down elements
@@ -1750,8 +1750,9 @@ s.waitForBoot({
 
 	//part for testing
 	var genButton, sample1, sample2, sample3; //generate new set of sounds, sample sounds buttons
+	var s1, s2, s3, s4; //sample buttons with no emotions
 	var b1, b2, b3, b4, b5; //testing sound buttons
-	var l_code1, l_code2, l_code3, l_code4, l_code5, l_info; //label za šifru
+	var l_info, l_code1, l_code2, l_code3, l_code4; //, l_code5; //label za šifru
 	var r_sound = [0,0,0,0,0];
 	var r_s2 = [0,0,0,0,0]; //variables with choosen samples
 	var r_s3 = [0,0,0,0,0];
@@ -1761,6 +1762,8 @@ s.waitForBoot({
 	var r_t4 = Array2D.fromArray(5,2,[0,0,0,0,0,0,0,0,0,0]);
 	var r_t5 = Array2D.fromArray(5,2,[0,0,0,0,0,0,0,0,0,0]);
 	var genFunction; //generate sound samples
+	var fileFunction; //write data in file
+	var mood_var; //array with mood values
 
 	// The window will allways be in the centar of the screen
 	w = Window("Robotic sounds as a method of communication", Rect(
@@ -1909,19 +1912,30 @@ s.waitForBoot({
 		{ "bye_crackle" }
 	];
 
-	mood_var = [
-		//normal
-		//happy
-		//sad
-		//surprised
-		//angry
-		//fearfull
-		//disgusted
-		//bored
-		[ 100, 130, 70, 130, 150, 150, 60, 50 ], // b_freq
-		[ 1, 1.2, 0.5, 1, 1.4, 0.8, 0.8, 0.6 ], //amp
-		[ 0.25, 0.2, 0.35, 0.25, 0.18, 0.22, 0.20, 0.45 ] //dur
-	];
+	//normal
+	//happy
+	//sad
+	//surprised
+	//angry
+	//fearfull
+	//disgusted
+	//bored
+	mood_var = Array2D.fromArray(3,8,[
+		100, 130, 70, 130, 150, 150, 60, 50, // b_freq
+		1, 1.2, 0.5, 1, 1.4, 0.8, 0.8, 0.6, //amp
+		0.25, 0.2, 0.35, 0.25, 0.18, 0.22, 0.20, 0.45 //dur
+	]);
+
+	//write data in file
+	fileFunction = {
+		arg code = "";
+		var f;
+		code = code ++ "\n";
+
+		f = File("C:/Users/Maikol/Desktop/superCollider/data.txt".standardizePath,"a");
+		f.write(code);
+		f.close;
+	};
 
 	//generate a new set of sounds
 	genFunction = {
@@ -1938,8 +1952,8 @@ s.waitForBoot({
 			arr_r[tmp] = pom;
 		});
 
-		//chose sounds, variables
-		for (0, 4, {
+		//choose sounds, variables
+		for (0, 3, { //choose 4
 			arg j;
 			var arr = [0,1,2,3,4,5,6,7,8,9,10]; //for dialogues
 
@@ -1955,15 +1969,15 @@ s.waitForBoot({
 			r_s2[j] = arr[1];
 			r_s3[j] = arr[2];
 			r_t1[j,0] = arr[3];
-			r_t1[j,1] = rrand(0,8);
+			r_t1[j,1] = rrand(0,7);
 			r_t2[j,0] = arr[4];
-			r_t2[j,1] = rrand(0,8);
+			r_t2[j,1] = rrand(0,7);
 			r_t3[j,0] = arr[5];
-			r_t3[j,1] = rrand(0,8);
+			r_t3[j,1] = rrand(0,7);
 			r_t4[j,0] = arr[6];
-			r_t4[j,1] = rrand(0,8);
+			r_t4[j,1] = rrand(0,7);
 			r_t5[j,0] = arr[7];
-			r_t5[j,1] = rrand(0,8);
+			r_t5[j,1] = rrand(0,7);
 
 			if (r_sound[j] == 10, {out_str = "A"}, {out_str = r_sound[j].asString;});
 			if (r_t1[j,0] == 10, {out_str =out_str ++ "A"}, {out_str =out_str ++ r_t1[j,0].asString;});
@@ -1981,9 +1995,11 @@ s.waitForBoot({
 				0, { l_code1.string = out_str; },
 				1, { l_code2.string = out_str; },
 				2, { l_code3.string = out_str; },
-				3, { l_code4.string = out_str; },
-				4, { l_code5.string = out_str; }
+				3, { l_code4.string = out_str; } //,4, { l_code5.string = out_str; }
 			);
+
+			//save code
+			fileFunction.value(out_str);
 		});
 
 	};
@@ -1998,14 +2014,14 @@ s.waitForBoot({
 	//first testing set
 	f.nextLine;
 
-	l_info = StaticText(w, Rect(0,0,100,24));
+	l_info = StaticText(w, Rect(0,0,80,24));
 	l_info.string = "First robot:";
 
 	l_code1 = StaticText(w, Rect(0,0,80,24));
 	l_code1.string = "";
 
 	f.nextLine;
-
+	//sample sounds
 	sample1 = Button(w, 75 @ 24)
 	.states_([["Sample 1", Color.black, Color.yellow]])
 	.action_({
@@ -2028,9 +2044,39 @@ s.waitForBoot({
 	});
 
 	f.nextLine;
+	//testing sounds with no emotions
+	s1 = Button(w, 75 @ 24)
+	.states_([["Help 1", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[0, 0]).value);
+	});
 
+	s2 = Button(w, 75 @ 24)
+	.states_([["Help 2", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[0, 0]).value);
+	});
+
+	s3 = Button(w, 75 @ 24)
+	.states_([["Help 3", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[0, 0]).value);
+	});
+
+	s4 = Button(w, 75 @ 24)
+	.states_([["Help 4", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[0, 0]).value);
+	});
+
+	f.nextLine;
+	//testing sounds
 	b1 = Button(w, 75 @ 24)
-	.states_([["Test 1", Color.black, Color.yellow]])
+	.states_([["Test 1", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[0, 0]).value);
@@ -2042,7 +2088,7 @@ s.waitForBoot({
 	});
 
 	b2 = Button(w, 75 @ 24)
-	.states_([["Test 2", Color.black, Color.yellow]])
+	.states_([["Test 2", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[0, 0]).value);
@@ -2054,7 +2100,7 @@ s.waitForBoot({
 	});
 
 	b3 = Button(w, 75 @ 24)
-	.states_([["Test 3", Color.black, Color.yellow]])
+	.states_([["Test 3", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[0, 0]).value);
@@ -2066,7 +2112,7 @@ s.waitForBoot({
 	});
 
 	b4 = Button(w, 75 @ 24)
-	.states_([["Test 4", Color.black, Color.yellow]])
+	.states_([["Test 4", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[0, 0]).value);
@@ -2078,7 +2124,7 @@ s.waitForBoot({
 	});
 
 	b5 = Button(w, 75 @ 24)
-	.states_([["Test 5", Color.black, Color.yellow]])
+	.states_([["Test 5", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t5[0, 0]).value);
@@ -2092,7 +2138,7 @@ s.waitForBoot({
 	//second testing set
 	f.nextLine;
 
-	l_info = StaticText(w, Rect(0,0,100,24));
+	l_info = StaticText(w, Rect(0,0,80,24));
 	l_info.string = "Second robot:";
 
 	l_code2 = StaticText(w, Rect(0,0,80,24));
@@ -2123,8 +2169,38 @@ s.waitForBoot({
 
 	f.nextLine;
 
+	s1 = Button(w, 75 @ 24)
+	.states_([["Help 1", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[1, 0]).value);
+	});
+
+	s2 = Button(w, 75 @ 24)
+	.states_([["Help 2", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[1, 0]).value);
+	});
+
+	s3 = Button(w, 75 @ 24)
+	.states_([["Help 3", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[1, 0]).value);
+	});
+
+	s4 = Button(w, 75 @ 24)
+	.states_([["Help 4", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[1, 0]).value);
+	});
+
+	f.nextLine;
+
 	b1 = Button(w, 75 @ 24)
-	.states_([["Test 1", Color.black, Color.yellow]])
+	.states_([["Test 1", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t1[1, 0]).value);
@@ -2136,7 +2212,7 @@ s.waitForBoot({
 	});
 
 	b2 = Button(w, 75 @ 24)
-	.states_([["Test 2", Color.black, Color.yellow]])
+	.states_([["Test 2", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t2[1, 0]).value);
@@ -2148,7 +2224,7 @@ s.waitForBoot({
 	});
 
 	b3 = Button(w, 75 @ 24)
-	.states_([["Test 3", Color.black, Color.yellow]])
+	.states_([["Test 3", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t3[1, 0]).value);
@@ -2160,7 +2236,7 @@ s.waitForBoot({
 	});
 
 	b4 = Button(w, 75 @ 24)
-	.states_([["Test 4", Color.black, Color.yellow]])
+	.states_([["Test 4", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t4[1, 0]).value);
@@ -2172,7 +2248,7 @@ s.waitForBoot({
 	});
 
 	b5 = Button(w, 75 @ 24)
-	.states_([["Test 5", Color.black, Color.yellow]])
+	.states_([["Test 5", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t5[1, 0]).value);
@@ -2186,7 +2262,7 @@ s.waitForBoot({
 	//third testing set
 	f.nextLine;
 
-	l_info = StaticText(w, Rect(0,0,100,24));
+	l_info = StaticText(w, Rect(0,0,80,24));
 	l_info.string = "Third robot:";
 
 	l_code3 = StaticText(w, Rect(0,0,80,24));
@@ -2217,8 +2293,38 @@ s.waitForBoot({
 
 	f.nextLine;
 
+	s1 = Button(w, 75 @ 24)
+	.states_([["Help 1", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[2, 0]).value);
+	});
+
+	s2 = Button(w, 75 @ 24)
+	.states_([["Help 2", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[2, 0]).value);
+	});
+
+	s3 = Button(w, 75 @ 24)
+	.states_([["Help 3", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[2, 0]).value);
+	});
+
+	s4 = Button(w, 75 @ 24)
+	.states_([["Help 4", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[2, 0]).value);
+	});
+
+	f.nextLine;
+
 	b1 = Button(w, 75 @ 24)
-	.states_([["Test 1", Color.black, Color.yellow]])
+	.states_([["Test 1", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t1[2, 0]).value);
@@ -2230,7 +2336,7 @@ s.waitForBoot({
 	});
 
 	b2 = Button(w, 75 @ 24)
-	.states_([["Test 2", Color.black, Color.yellow]])
+	.states_([["Test 2", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t2[2, 0]).value);
@@ -2242,7 +2348,7 @@ s.waitForBoot({
 	});
 
 	b3 = Button(w, 75 @ 24)
-	.states_([["Test 3", Color.black, Color.yellow]])
+	.states_([["Test 3", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t3[2, 0]).value);
@@ -2254,7 +2360,7 @@ s.waitForBoot({
 	});
 
 	b4 = Button(w, 75 @ 24)
-	.states_([["Test 4", Color.black, Color.yellow]])
+	.states_([["Test 4", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t4[2, 0]).value);
@@ -2266,7 +2372,7 @@ s.waitForBoot({
 	});
 
 	b5 = Button(w, 75 @ 24)
-	.states_([["Test 5", Color.black, Color.yellow]])
+	.states_([["Test 5", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t5[2, 0]).value);
@@ -2280,7 +2386,7 @@ s.waitForBoot({
 	//fourth testing set
 	f.nextLine;
 
-	l_info = StaticText(w, Rect(0,0,100,24));
+	l_info = StaticText(w, Rect(0,0,80,24));
 	l_info.string = "Fourth robot:";
 
 	l_code4 = StaticText(w, Rect(0,0,80,24));
@@ -2311,8 +2417,38 @@ s.waitForBoot({
 
 	f.nextLine;
 
+	s1 = Button(w, 75 @ 24)
+	.states_([["Help 1", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[3, 0]).value);
+	});
+
+	s2 = Button(w, 75 @ 24)
+	.states_([["Help 2", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[3, 0]).value);
+	});
+
+	s3 = Button(w, 75 @ 24)
+	.states_([["Help 3", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[3, 0]).value);
+	});
+
+	s4 = Button(w, 75 @ 24)
+	.states_([["Help 4", Color.black, Color.yellow]])
+	.action_({
+		snd.free;
+		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[3, 0]).value);
+	});
+
+	f.nextLine;
+
 	b1 = Button(w, 75 @ 24)
-	.states_([["Test 1", Color.black, Color.yellow]])
+	.states_([["Test 1", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t1[3, 0]).value);
@@ -2324,7 +2460,7 @@ s.waitForBoot({
 	});
 
 	b2 = Button(w, 75 @ 24)
-	.states_([["Test 2", Color.black, Color.yellow]])
+	.states_([["Test 2", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t2[3, 0]).value);
@@ -2336,7 +2472,7 @@ s.waitForBoot({
 	});
 
 	b3 = Button(w, 75 @ 24)
-	.states_([["Test 3", Color.black, Color.yellow]])
+	.states_([["Test 3", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t3[3, 0]).value);
@@ -2348,7 +2484,7 @@ s.waitForBoot({
 	});
 
 	b4 = Button(w, 75 @ 24)
-	.states_([["Test 4", Color.black, Color.yellow]])
+	.states_([["Test 4", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t4[3, 0]).value);
@@ -2360,7 +2496,7 @@ s.waitForBoot({
 	});
 
 	b5 = Button(w, 75 @ 24)
-	.states_([["Test 5", Color.black, Color.yellow]])
+	.states_([["Test 5", Color.black, Color.green]])
 	.action_({
 		snd.free;
 		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t5[3, 0]).value);
@@ -2368,100 +2504,6 @@ s.waitForBoot({
 			"b_freq", mood_var.at(0, r_t5[3, 1]),
 			"amp", mood_var.at(1, r_t5[3, 1]),
 			"dur", mood_var.at(2, r_t5[3, 1])
-		);
-	});
-
-	//fifth testing set
-	f.nextLine;
-
-	l_info = StaticText(w, Rect(0,0,100,24));
-	l_info.string = "Fifth robot:";
-
-	l_code5 = StaticText(w, Rect(0,0,80,24));
-	l_code5.string = "";
-
-	f.nextLine;
-
-	sample1 = Button(w, 75 @ 24)
-	.states_([["Sample 1", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + 0).value);
-	});
-
-	sample2 = Button(w, 75 @ 24)
-	.states_([["Sample 2", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_s2[4]).value);
-	});
-
-	sample3 = Button(w, 75 @ 24)
-	.states_([["Sample 3", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_s3[4]).value);
-	});
-
-	f.nextLine;
-
-	b1 = Button(w, 75 @ 24)
-	.states_([["Test 1", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_t1[4, 0]).value);
-		snd.set(
-			"b_freq", mood_var.at(0, r_t1[4, 1]),
-			"amp", mood_var.at(1, r_t1[4, 1]),
-			"dur", mood_var.at(2, r_t1[4, 1])
-		);
-	});
-
-	b2 = Button(w, 75 @ 24)
-	.states_([["Test 2", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_t2[4, 0]).value);
-		snd.set(
-			"b_freq", mood_var.at(0, r_t2[4, 1]),
-			"amp", mood_var.at(1, r_t2[4, 1]),
-			"dur", mood_var.at(2, r_t2[4, 1])
-		);
-	});
-
-	b3 = Button(w, 75 @ 24)
-	.states_([["Test 3", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_t3[4, 0]).value);
-		snd.set(
-			"b_freq", mood_var.at(0, r_t3[4, 1]),
-			"amp", mood_var.at(1, r_t3[4, 1]),
-			"dur", mood_var.at(2, r_t3[4, 1])
-		);
-	});
-
-	b4 = Button(w, 75 @ 24)
-	.states_([["Test 4", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_t4[4, 0]).value);
-		snd.set(
-			"b_freq", mood_var.at(0, r_t4[4, 1]),
-			"amp", mood_var.at(1, r_t4[4, 1]),
-			"dur", mood_var.at(2, r_t4[4, 1])
-		);
-	});
-
-	b5 = Button(w, 75 @ 24)
-	.states_([["Test 5", Color.black, Color.yellow]])
-	.action_({
-		snd.free;
-		snd = Synth.new(funcs.at(r_sound[4]*dialogues + r_t5[4, 0]).value);
-		snd.set(
-			"b_freq", mood_var.at(0, r_t5[4, 1]),
-			"amp", mood_var.at(1, r_t5[4, 1]),
-			"dur", mood_var.at(2, r_t5[4, 1])
 		);
 	});
 
