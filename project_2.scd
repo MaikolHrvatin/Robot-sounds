@@ -1932,7 +1932,7 @@ s.waitForBoot({
 		var f;
 		code = code ++ "\n";
 
-		f = File("C:/Users/Maikol/Desktop/superCollider/data.txt".standardizePath,"a");
+		f = File("C:/Users/Maikol/Desktop/superCollider/test_data/data"+Date.getDate.format("%H%M%S")+".txt".standardizePath,"a");
 		f.write(code);
 		f.close;
 	};
@@ -2173,28 +2173,28 @@ s.waitForBoot({
 	.states_([["Help 1", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[1, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t1[1, 0]).value);
 	});
 
 	s2 = Button(w, 75 @ 24)
 	.states_([["Help 2", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[1, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t2[1, 0]).value);
 	});
 
 	s3 = Button(w, 75 @ 24)
 	.states_([["Help 3", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[1, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t3[1, 0]).value);
 	});
 
 	s4 = Button(w, 75 @ 24)
 	.states_([["Help 4", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[1, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[1]*dialogues + r_t4[1, 0]).value);
 	});
 
 	f.nextLine;
@@ -2297,28 +2297,28 @@ s.waitForBoot({
 	.states_([["Help 1", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[2, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t1[2, 0]).value);
 	});
 
 	s2 = Button(w, 75 @ 24)
 	.states_([["Help 2", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[2, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t2[2, 0]).value);
 	});
 
 	s3 = Button(w, 75 @ 24)
 	.states_([["Help 3", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[2, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t3[2, 0]).value);
 	});
 
 	s4 = Button(w, 75 @ 24)
 	.states_([["Help 4", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[2, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[2]*dialogues + r_t4[2, 0]).value);
 	});
 
 	f.nextLine;
@@ -2421,28 +2421,28 @@ s.waitForBoot({
 	.states_([["Help 1", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t1[3, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t1[3, 0]).value);
 	});
 
 	s2 = Button(w, 75 @ 24)
 	.states_([["Help 2", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t2[3, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t2[3, 0]).value);
 	});
 
 	s3 = Button(w, 75 @ 24)
 	.states_([["Help 3", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t3[3, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t3[3, 0]).value);
 	});
 
 	s4 = Button(w, 75 @ 24)
 	.states_([["Help 4", Color.black, Color.yellow]])
 	.action_({
 		snd.free;
-		snd = Synth.new(funcs.at(r_sound[0]*dialogues + r_t4[3, 0]).value);
+		snd = Synth.new(funcs.at(r_sound[3]*dialogues + r_t4[3, 0]).value);
 	});
 
 	f.nextLine;
